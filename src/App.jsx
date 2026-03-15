@@ -231,9 +231,17 @@ async function scoreFromGrok(grokText, criteria, onProgress) {
   return result;
 }
 
-const CLARIFY_PROMPT = `You are a senior recruitment consultant helping to sharpen a LinkedIn candidate search.
-Based on the partial search criteria provided, generate 4-6 targeted clarifying questions that would meaningfully improve the search.
-Focus on gaps that could significantly affect results: unclear seniority boundaries, ambiguous role scope, missing deal-breakers, compensation expectations, team context, etc.
+const CLARIFY_PROMPT = `You are a senior recruitment consultant helping sharpen a LinkedIn candidate search.
+
+Review the criteria provided. Generate ONLY 2-3 clarifying questions that are:
+1. Genuinely missing — not inferable from what was already provided
+2. Critical to finding the right candidates — without this answer, results will be significantly worse
+3. Never ask about industry/sector if a company URL or company background was provided
+4. Never ask about location if country or city was provided
+5. Never ask about seniority if it was already specified
+6. Never ask about technologies if a job description was provided
+7. If enough context exists to run a good search — return 0 questions (empty array)
+
 Return ONLY valid JSON, no markdown:
 {
   "questions": [
