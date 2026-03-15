@@ -10,9 +10,10 @@ export default async function handler(req, res) {
 
     const anthropicBody = {
       model: "claude-sonnet-4-20250514",
-      max_tokens: body.max_tokens || 5000,
+      max_tokens: body.max_tokens || 6000,
       messages: body.messages || [],
       ...(body.system && { system: body.system }),
+      ...(body.tools && { tools: body.tools }),
     };
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -26,11 +27,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    const text = data.content?.[0]?.text || "";
+    return res.status(200).json(data);
 
-    return res.status(200).json({
-      content: [{ type: "text", text }]
-    });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
