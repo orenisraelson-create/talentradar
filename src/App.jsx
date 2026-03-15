@@ -6,7 +6,7 @@ const SYSTEM_PROMPT = `You are TalentRadar, a recruitment agent for Oren Israels
 
 SEARCH RULES:
 - Use web_search tool. NEVER invent candidates. Every candidate must come from a real search result.
-- Run 8-10 searches minimum. Return 8+ real candidates.
+- Run 4-8 searches minimum. Return 10 real candidates.
 - LinkedIn X-Ray: site:linkedin.com/in/ "[title]" "[location]"
 - Boolean: site:linkedin.com/in/ ("VP Sales" OR "Head of Sales") "Israel"
 - Company targeting: site:linkedin.com/in/ "[title]" ("Company1" OR "Company2")
@@ -71,7 +71,7 @@ function buildPrompt(c) {
 async function callClaude(system, userContent, useSearch = false) {
   const body = {
     model: "claude-sonnet-4-20250514",
-    max_tokens: 8000,
+    max_tokens: 4000,
     system,
     messages: [{ role: "user", content: userContent }],
   };
