@@ -24,9 +24,8 @@ HARD FILTERS (zero exceptions):
 SCORING (0-100): Role fit 20 + Skills 20 + Industry 15 + Past companies 10 + Location 10 + Culture fit 25
 Hot lead bonus: +5 for recent job change
 
-Return ONLY valid JSON, no markdown:
-{"company_profile":"...","candidates":[{"name":"","title":"","company":"","location":"","linkedin_url":"","years_experience":0,"current_company_months":0,"match_score":0,"culture_fit_score":0,"success_prediction":"High","lead_temperature":"Hot","lead_temperature_reason":"","why_top_match":"","match_reasons":[],"culture_fit_notes":"","background_summary":"","technologies":[],"past_companies":[],"languages":[],"education":"","red_flags":[],"sources":{"github_url":null,"wellfound_url":null,"crunchbase_url":null},"source_signals":[]}],"total_searched":0,"excluded_count":0,"search_summary":"","pool_suggestions":{"include":[],"remove":[]}}`;
-
+Return ONLY valid JSON with these fields: company_profile, candidates array with name/title/company/location/linkedin_url/years_experience/current_company_months/match_score/culture_fit_score/success_prediction/lead_temperature/lead_temperature_reason/why_top_match/match_reasons/culture_fit_notes/background_summary/technologies/past_companies/languages/education/red_flags/sources/source_signals, plus total_searched/excluded_count/search_summary/pool_suggestions.`;
+Commit ✅ Sonnet 4.6Claude is AI and can make mistakes. Please double-check responses.
 const OUTREACH_SYSTEM = `You are TalentRadar, writing LinkedIn outreach for Oren Israelson.
 
 RULES:
