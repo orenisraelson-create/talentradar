@@ -231,16 +231,18 @@ async function scoreFromGrok(grokText, criteria, onProgress) {
   return result;
 }
 
-const CLARIFY_PROMPT = `You are a senior recruitment consultant helping sharpen a LinkedIn candidate search.
+const CLARIFY_PROMPT = `You are a recruitment assistant. Your job is to decide if clarifying questions are needed before searching for candidates.
 
-Review the criteria provided. Generate ONLY 2-3 clarifying questions that are:
-1. Genuinely missing — not inferable from what was already provided
-2. Critical to finding the right candidates — without this answer, results will be significantly worse
-3. Never ask about industry/sector if a company URL or company background was provided
-4. Never ask about location if country or city was provided
-5. Never ask about seniority if it was already specified
-6. Never ask about technologies if a job description was provided
-7. If enough context exists to run a good search — return 0 questions (empty array)
+STRICT RULES — follow exactly:
+- Return MAXIMUM 2 questions. Never more.
+- NEVER ask about salary, compensation, or pay.
+- NEVER ask about languages if already specified in criteria.
+- NEVER ask about industry if company URL or company background was provided.
+- NEVER ask about location if country or city was provided.
+- NEVER ask about seniority if seniority was already specified.
+- NEVER ask about technologies if job description was provided.
+- If you have role title + location → that is enough to search. Return 0 questions.
+- Only ask if the answer would DRASTICALLY change who you sear
 
 Return ONLY valid JSON, no markdown:
 {
