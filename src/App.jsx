@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API = "/api/claude";
+const API = "/api/gemini";
 
 const SYSTEM_PROMPT = [
   "You are TalentRadar, a recruitment agent.",
