@@ -925,7 +925,7 @@ export default function App() {
     return { ...f, jobDescription: [f.jobDescription, extra].filter(Boolean).join("\n\nAdditional context from clarifying questions:\n") };
   };
 
-  const handleSearch = async () => {
+const handleSearch = async () => {
     if (!f.roleTitle && !f.industry && !f.jobDescription && !f.sampleProfile) {
       setError("Fill in at least a Role Title, Industry, Job Description, or Sample Profile.");
       return;
@@ -933,19 +933,15 @@ export default function App() {
     setError("");
     setLoading(true);
     setResults(null);
+    setPhase("searching");
     try {
-      const qs = await askClarifyingQuestions(f);
-      setQuestions(qs);
-      setAnswers({});
-      setPhase("questions");
-      setLoading(false);
-      setTimeout(()=>clarifyRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),150);
-    } catch(e) {
-      setError(e.message);
-      setLoading(false);
-    }
+      const data = await runSearch(f, setProgress);
+      setResults(data);
+      setSearchedAt(new Date().toLocaleString());
+      setTimeout(()=>resultsRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),200);
+    } catch(e) { setError(e.message); }
+    finally { setLoading(false); setPhase("done"); }
   };
-
   const runActualSearch = async () => {
     setLoading(true);
     setResults(null);
